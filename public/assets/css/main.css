@@ -2,6 +2,7 @@ body{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
     direction: rtl;
     text-align: right;
+    font-family: IRANSans;
 }
 .emp-profile{
     padding: 3%;
@@ -102,25 +103,26 @@ body{
 }
 
 input 				{
-    font-size:18px;
-    /*padding:8px 8px 8px 5px;*/
-    padding:0;
+    font-size:14px;
+    padding:8px 8px 8px 5px;
+    /*padding:0;*/
     display:block;
     width:300px;
     border:none;
     border-bottom:1px solid #757575;
+    background-color: transparent;
 }
 input:focus 		{ outline:none; }
 
 /* LABEL ======================================= */
 .group label 				 {
     color:#999;
-    font-size:18px;
+    font-size:14px;
     font-weight:normal;
     position:absolute;
     pointer-events:none;
-    right:5px;
-    top:-4px;
+    right:10px;
+    top:4px;
     transition:0.2s ease all;
     -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
@@ -128,8 +130,9 @@ input:focus 		{ outline:none; }
 
 /* active state */
 input:focus ~ label, input:valid ~ label 		{
-    right:-20px;
-    font-size:14px;
+    right:5px;
+    top:-15px;
+    font-size:12px;
     color:#5264AE;
 }
 

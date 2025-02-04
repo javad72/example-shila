@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="{{asset('assets/font/iransans/iransans.css')}}" rel="stylesheet" id="font-css">
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet" id="main-css">
 
 </head>

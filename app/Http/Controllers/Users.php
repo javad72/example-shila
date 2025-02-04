@@ -86,6 +86,13 @@ class Users extends Controller
 
     public function userEdit()
     {
-        return view('user.user-edit');
+        $data = [
+            "name"=> '',
+            "family"=> '',
+            "email"=> '',
+            "phone"=> '',
+            "profession"=> '',
+        ];
+        return view('user.user-edit' , ['data'=>$data]);
     }
 }

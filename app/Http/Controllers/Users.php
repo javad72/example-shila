@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class Users extends Controller
 {
+    public $userId = 0 ;
+    public function __construct()
+    {
+        $this->userId = $_GET['id']??0;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -86,13 +92,39 @@ class Users extends Controller
 
     public function userEdit()
     {
-        $data = [
-            "name"=> '',
-            "family"=> '',
-            "email"=> '',
-            "phone"=> '',
-            "profession"=> '',
-        ];
-        return view('user.user-edit' , ['data'=>$data]);
+        if($this->userId){
+            $data= Users::findOrFail($this->userId);
+        }else{
+            $data = [
+                "firstName"=> '',
+                "lastName"=> '',
+                "email"=> '',
+                "phone"=> '',
+                "profession"=> '',
+            ];
+        }
+
+
+        return view('user.user-edit', $data );
+    }
+
+    public function userUpdate(Request $request)
+    {
+        $validatedData = $request->validate( [
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255|unique:users,email,'.$this->userId??'',
+            'email' => 'required|email|max:255',
+            'phone' => ['required', 'string', 'regex:/^09\d{9}$/'],
+            'profession' => 'required|string|max:255',
+        ]);
+
+        Users::create([
+            'firstName'     => $validatedData['firstName'],
+            'lastName'      => $validatedData['lastName'],
+            'email'         => $validatedData['email'],
+            'phone'         => $validatedData['phone'],
+            'profession'    => $validatedData['profession'],
+        ]);
+        return redirect()->back();
     }
 }

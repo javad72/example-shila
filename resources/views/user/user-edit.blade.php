@@ -3,21 +3,12 @@
 @section('content')
 <div class="container emp-profile">
     <div class="row">
-        <div class="col-md-4">
-            <div class="profile-img">
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-                    alt=""/>
-                <div class="file btn btn-lg btn-primary">
-                    Change Photo
-                    <input type="file" name="file"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+
+        <div class="col-md-8">
             <div class="profile-head">
                 <h5>
-                    {{$firstName??'بدون نام'.' '.$lastName??''}}
+                    {{$firstName??'بدون نام'}}
+                    {{$lastName??''}}
                 </h5>
                 <h6>
                     {{$profession??'بدون فیلد شغلی'}}
@@ -29,58 +20,42 @@
                            aria-controls="home" aria-selected="true">مشخصات کاربری</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                           aria-controls="profile" aria-selected="false">کیف پول</a>
+                        <a class="nav-link {{$id??'disabled'}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                           aria-controls="profile" aria-selected="false">وضعیت کاربر </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-2">
-            <input type="submit" class="profile-edit-btn small" name="Editable" value="فعال سازی حالت ویرایش"/>
+        <div class="col-md-4">
+            <div class="profile-img">
+
+                    <img
+                        id="previewImage"
+                        src="{{$image}}"
+                        alt=""/>
+
+
+                <a href="#" id="imageHandle" class="file btn btn-lg btn-primary">
+                    تغیر تصویر
+                </a>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="profile-work">
-                <h2>مهارت ها</h2>
-                <div class="mb-3 d-flex flex-ror">
-                    <input class="form-control w-100" type="text" placeholder="نام مهارت وارد کنید">
-                    <button class="btn btn-outline-primary mr-1 " style="padding-top: 10px">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                        </svg>
-                    </button>
-                </div>
-                 <div class="d-flex flex-row flex-wrap">
-                     <span class="p-1 m-1 rounded badge badge-success">
-                         <a class="text-white" href="#">Web Designer</a>
-                     </span>
-                     <span class="p-1 m-1 rounded badge badge-success">
-                         <a class="text-white" href="#">Web Developer</a>
-                     </span>
-                     <span class="p-1 m-1 rounded badge badge-success">
-                         <a class="text-white" href="#">WordPress</a>
-                     </span>
-                     <span class="p-1 m-1 rounded badge badge-success">
-                         <a class="text-white" href="#">WooCommerce</a>
-                     </span>
-                     <span class="p-1 m-1 rounded badge badge-success">
-                         <a class="text-white" href="#">PHP, .Net</a>
-                     </span>
-                 </div>
-            </div>
-        </div>
+
         <div class="col-md-8">
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <form id="userData"  method="post" action="{{route('user.update')}}">
+                    <form id="userData"  method="post" action="{{route('user.update')}}" enctype="multipart/form-data">
+                        <input  type="file" name="image" class="d-none" accept="image/*"/>
                         @csrf
+                        <input type="hidden" name="id" value="{{$id??0}}" >
                         <div class="row ">
                             <div class="col-md-6">
                                 <label>شناسه کاربر</label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">{{old('id' , 'بدون شناسه')}}</p>
+                                <p class="mb-0">{{$username??'بدون شناسه'}}</p>
                             </div>
                         </div>
 
@@ -89,7 +64,7 @@
                                 <label>نام </label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">{{old('firstName', 'وارد نشده')}}</p>
+                                <p class="mb-0">{{$firstName ?: old('firstName', 'وارد نشده')}}</p>
                                 <a class="text-dark text-muted" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -97,7 +72,7 @@
                                 </a>
                             </div>
                             <div class="d-none group col-md-6">
-                                <input type="text" name="firstName"  value="{{old('firstName')}}">
+                                <input type="text" name="firstName"  value="{{$firstName ?: old('firstName', 'وارد نشده')}}">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>نام </label>
@@ -114,7 +89,7 @@
                                 <label>نام خانوادگی</label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">وارد نشده</p>
+                                <p class="mb-0">{{$lastName?: old('lastName', 'وارد نشده')}}</p>
                                 <a class="text-dark text-muted" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -122,7 +97,7 @@
                                 </a>
                             </div>
                             <div class="d-none group col-md-6">
-                                <input type="text" value="{{old('lastName', 'وارد نشده')}}" name="lastName">
+                                <input type="text" value="{{$lastName?: old('lastName', 'وارد نشده')}}" name="lastName">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>نام خانوادگی</label>
@@ -139,7 +114,7 @@
                                 <label>پست الکترونیکی</label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">{{old('email', 'وارد نشده')}}</p>
+                                <p class="mb-0">{{$email?: old('email', 'وارد نشده')}}</p>
                                 <a class="text-dark text-muted" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -147,7 +122,7 @@
                                 </a>
                             </div>
                             <div class="d-none group col-md-6">
-                                <input type="text"  name="email" value="{{old('email')}}">
+                                <input type="text"  name="email" value="{{$email?: old('email')}}">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>پست الکترونیکی</label>
@@ -164,7 +139,7 @@
                                 <label>تلفن</label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">{{old('phone', 'وارد نشده')}}</p>
+                                <p class="mb-0">{{$phone?: old('phone', 'وارد نشده')}}</p>
                                 <a class="text-dark text-muted" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -172,7 +147,7 @@
                                 </a>
                             </div>
                             <div class="d-none group col-md-6">
-                                <input type="text" name="phone" value="{{old('phone')}}"  />
+                                <input type="text" name="phone" value="{{$phone?: old('phone')}}"  />
 
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
@@ -190,7 +165,7 @@
                                 <label>فیلد شغلی</label>
                             </div>
                             <div class="col-md-6 d-flex flex-row align-items-baseline justify-content-between">
-                                <p class="mb-0">{{old('profession', 'وارد نشده')}}</p>
+                                <p class="mb-0">{{$profession ?: old('profession', 'وارد نشده')}}</p>
                                 <a class="text-dark text-muted" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -198,7 +173,7 @@
                                 </a>
                             </div>
                             <div class="d-none group col-md-6">
-                                <input type="text" name="profession" value="{{old('profession')}}">
+                                <input type="text" name="profession" value="{{$profession ?: old('profession')}}">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>فیلد شغلی </label>
@@ -209,9 +184,10 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             @if ($errors->any())
                                 <div style="color: red;">
+                                    <h4>اطلاعات به علت خطاهای زیر ذخیره نشد!</h4>
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -221,12 +197,26 @@
                             @endif
                         </div>
                         <div class="row pt-3 pb-2 py-3">
-                            <button id="saveButton" class="btn btn-primary" type="submit">ذخیره</button>
+                            <button id="saveButton" class="btn btn-primary" type="submit">{{ isset($id) ?'بروزرسانی':'ذخیره'}}</button>
                         </div>
                     </form>
 
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="status">وضعیت کاربر :</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="btn-switch btn-rect" id="button-16">
+                                <input type="checkbox" class="checkbox" name="status"  @if($status == 1) checked @endif />
+                                <div class="knob"></div>
+                                <div class="btn-bg"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="message"></div>
+
                 </div>
             </div>
         </div>

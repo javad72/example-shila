@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('phone');
             $table->string('profession')->nullable();
-            $table->text('address');
-            $table->string('links');
-            $table->char('rank','2');
+            $table->text('address')->nullable();
+            $table->string('links')->nullable();
+            $table->char('rank','2')->default(0);
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);
             $table->rememberToken();

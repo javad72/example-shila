@@ -4,6 +4,7 @@ body{
     text-align: right;
     font-family: IRANSans;
 }
+
 .emp-profile{
     padding: 3%;
     margin-top: 3%;
@@ -71,8 +72,8 @@ body{
     border-bottom:2px solid #0062cc;
 }
 .profile-work{
-    padding: 14%;
-    margin-top: -15%;
+    padding: 9%;
+    margin-top: 0%;
 }
 .profile-work p{
     font-size: 12px;
@@ -191,4 +192,118 @@ input:focus ~ .highlight {
 @keyframes inputHighlighter {
     from { background:#5264AE; }
     to 	{ width:0; background:transparent; }
+}
+
+
+.toggle-button-container {
+    position: relative;
+    width: 200px;
+    height: 140px;
+    box-sizing: border-box;
+}
+
+.toggle-button {
+    position: relative;
+    height: 100px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px -8px #c5d6d6;
+    border-radius: 4px;
+}
+
+.toggle-button:before {
+    counter-increment: button-counter;
+    content: counter(button-counter);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #d7e3e3;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+}
+
+.knob,
+.btn-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.btn-switch {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.btn-switch.btn-pill,
+.btn-switch.btn-pill > .btn-bg {
+    border-radius: 100px;
+}
+
+.btn-switch.btn-rect {
+    border-radius: 2px;
+}
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knob {
+    z-index: 2;
+}
+
+.btn-bg {
+    width: 100%;
+    background-color: #ebf7fc;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+/* Button 16 */
+#button-16 .knob:before {
+    content: "غیرفعال";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 40px;
+    height: 26px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    background-color: #f80326;
+    border-radius: 2px;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#button-16 .checkbox:active + .knob:before {
+    width: 46px;
+}
+
+#button-16 .checkbox:checked:active + .knob:before {
+    margin-left: -26px;
+}
+
+#button-16 .checkbox:checked + .knob:before {
+    content: "فعال";
+    left: 31px;
+    background-color: #3bff0c;
+}
+
+#button-16 .checkbox:checked ~ .btn-bg {
+    background-color: #fcebeb;
 }

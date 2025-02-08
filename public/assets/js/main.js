@@ -109,7 +109,6 @@
 
 
         }
-
         userListSection(){
             $('input[name=status]').on('change', function (e) {
                 e.preventDefault();

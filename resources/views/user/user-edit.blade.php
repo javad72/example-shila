@@ -208,7 +208,7 @@
                             <label for="status">وضعیت کاربر :</label>
                         </div>
                         <div class="col-md-9">
-                            <div class="btn-switch btn-rect" id="button-16">
+                            <div class="btn-switch btn-rect button-16" >
                                 <input type="checkbox" class="checkbox" name="status"  @if($status == 1) checked @endif />
                                 <div class="knob"></div>
                                 <div class="btn-bg"></div>

@@ -10,10 +10,8 @@
 
     <link href="{{asset('assets/font/iransans/iransans.css')}}" rel="stylesheet" id="font-css">
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet" id="main-css">
+    <link href="{{asset('assets/css/iao-alert.min.css')}}" rel="stylesheet" id="alert-css">
 
-    @if(request()->route()->getName() === 'users')
-        <link href="https://gudh.github.io/ihover/dist/styles/main.css" rel="stylesheet" id="ihover-css">
-    @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>

@@ -7,6 +7,7 @@
 
         muduls = [
             {'userEditSection': '.emp-profile'},
+            {'userListSection': '.user-list'},
         ];
 
         constructor() {
@@ -107,6 +108,50 @@
 
 
 
+        }
+
+        userListSection(){
+            $('input[name=status]').on('change', function (e) {
+                e.preventDefault();
+                const isChecked = $(this).is(':checked');
+                const id = $(this).data('id').toString();
+                $.ajax({
+                    url: '/user-change-status',
+                    method: 'POST',
+                    data: JSON.stringify({status: isChecked, id}),
+                    contentType: 'application/json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (response) {
+                        if (response.status === 200) {
+                            $.iaoAlert({
+                                position:'top-right',
+                                msg:response.message,
+                                closeButton : true ,
+                                type: "success"
+
+                            })
+                        } else {
+                            $.iaoAlert({
+                                position:'top-right',
+                                msg:response.message,
+                                closeButton : true ,
+                                type: "error"
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        console.error( error);
+                        $.iaoAlert({
+                            position:'top-right',
+                            msg: error.responseJSON.message,
+                            closeButton : true ,
+                            type: "error"
+                        })
+                    }
+                });
+            });
         }
     }
 })(jQuery);

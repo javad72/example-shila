@@ -125,7 +125,7 @@
                     success: function (response) {
                         if (response.status === 200) {
                             $.iaoAlert({
-                                position:'top-right',
+                                position:'bottom-left',
                                 msg:response.message,
                                 closeButton : true ,
                                 type: "success"

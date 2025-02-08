@@ -325,3 +325,6 @@ input:focus ~ .highlight {
 .card:hover{
     transform: scale(1.05);
 }
+.nav .current{
+    border-bottom: 2px solid cornflowerblue;
+}
